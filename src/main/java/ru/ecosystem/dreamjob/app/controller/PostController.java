@@ -11,13 +11,13 @@ import ru.ecosystem.dreamjob.app.service.PostService;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/posts")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/getAllPosts")
+    @GetMapping
     public ModelAndView getAllPosts() {
         return new ModelAndView("posts", Map.of("posts", postService.getAllPosts()));
     }

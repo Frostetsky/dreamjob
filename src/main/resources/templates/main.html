@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<html>
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -17,6 +17,7 @@
 
     <title>Работа мечты!</title>
 </head>
+
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -36,27 +37,13 @@
 <br>
 <br>
 
-<div class="container">
-    <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Название резюме</th>
-                <th scope="col">Описание</th>
-                <th scope="col">Дата публикации</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="candidate: ${candidates}">
-                <td th:text="${candidate.id}" />
-                <td th:text="${candidate.name}" />
-                <td th:text="${candidate.description}"/>
-                <td th:text="${candidate.created}"/>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<h4 align="center">
+    Добро пожаловать на платформу "Работа мечты"!
+    <br>
+    <br>
+    <p><img src="https://st2.depositphotos.com/3591429/6310/i/600/depositphotos_63105853-stock-photo-businessman-writting-about-dream-job.jpg" alt="Заставка"></p>
+</h4>
+
 </body>
+
 </html>

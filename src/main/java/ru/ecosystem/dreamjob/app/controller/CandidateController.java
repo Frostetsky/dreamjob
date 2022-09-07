@@ -11,13 +11,13 @@ import ru.ecosystem.dreamjob.app.service.CandidateService;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/candidate")
+@RequestMapping("/candidates")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CandidateController {
 
     private final CandidateService candidateService;
 
-    @GetMapping("/getAllCandidates")
+    @GetMapping
     public ModelAndView getAllCandidates() {
         return new ModelAndView("candidates", Map.of("candidates", candidateService.getAllCandidates()));
     }
