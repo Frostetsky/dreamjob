@@ -15,6 +15,8 @@ public class Candidate {
 
     private String name;
 
+    private String price;
+
     private String description;
 
     private LocalDateTime created;

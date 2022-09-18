@@ -17,4 +17,8 @@ public class CandidateService {
     public List<Candidate> getAllCandidates() {
         return candidateRepository.findAll();
     }
+
+    public void addCandidate(Candidate candidate) {
+        candidateRepository.addCandidate(candidate);
+    }
 }
