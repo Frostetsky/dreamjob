@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,12 +14,10 @@
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>Работа мечты!</title>
+    <title>Работа мечты</title>
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">DreamJob</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,35 +36,25 @@
 
 <br>
 <br>
-
 <div class="container">
-    <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Название вакансии</th>
-                <th scope="col">Название компании</th>
-                <th scope="col">Описание</th>
-                <th scope="col">Дата публикации</th>
-                <th scope="col">Операции</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="post: ${posts}">
-                <td th:text="${post.id}" />
-                <td th:text="${post.name}" />
-                <td th:text="${post.company}"/>
-                <td th:text="${post.description}"/>
-                <td th:text="${post.created}"/>
-                <td>
-                    <a th:href="@{|/posts/updatePost/${post.id}|}">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="row pt-3">
+        <div class="card" style="width: 100%">
+            <div class="card-header">
+                Редактирование вакансии
+            </div>
+            <div class="card-body">
+                <form th:action="@{|/posts/updatePost/${post.id}|}" method="POST" th:object="${post}">
+                    <div class="form-group">
+                        <p>Название вакансии: <input type="text" size="45" placeholder="Введите название вакансии" th:field="${post.name}"/></p>
+                        <br>
+                        <p>Название компании: <input type="text" size="45" placeholder="Введите название компании" th:field="${post.company}"/></p>
+                        <br>
+                        <p>Описание вакансии: </p><textarea rows="15" cols="80" placeholder="Введите описание" th:field="${post.description}"></textarea></p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Обновить данные</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 </body>

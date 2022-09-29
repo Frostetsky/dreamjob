@@ -21,4 +21,12 @@ public class PostService {
     public void addPost(Post post) {
         postRepository.add(post);
     }
+
+    public Post getPostById(long id) {
+        return postRepository.getById(id);
+    }
+
+    public void updatePost(long id, Post post) {
+        postRepository.update(id, post);
+    }
 }

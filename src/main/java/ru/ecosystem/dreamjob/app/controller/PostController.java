@@ -42,4 +42,22 @@ public class PostController {
         postService.addPost(post);
         httpServletResponse.sendRedirect(String.format("%s/posts", httpServletRequest.getContextPath()));
     }
+
+    @GetMapping("/updatePost/{id}")
+    public ModelAndView updatePostForm(@PathVariable("id") Long id) {
+        var rsl = postService.getPostById(id);
+        return new ModelAndView(
+                "update-post",
+                Map.of("post", rsl)
+        );
+    }
+
+    @PostMapping("/updatePost/{id}")
+    public void updatePostSubmit(@ModelAttribute("post") Post post,
+                                 @PathVariable("id") Long id,
+                                 HttpServletRequest httpServletRequest,
+                                 HttpServletResponse httpServletResponse) throws IOException {
+        postService.updatePost(id, post);
+        httpServletResponse.sendRedirect(String.format("%s/posts", httpServletRequest.getContextPath()));
+    }
 }

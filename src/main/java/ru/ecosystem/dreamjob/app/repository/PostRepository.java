@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import static ru.ecosystem.dreamjob.app.util.DreamJobUtils.*;
 
@@ -35,5 +36,20 @@ public class PostRepository {
         post.setId(id);
         post.setCreated(LocalDateTime.now());
         posts.putIfAbsent(id, post);
+    }
+
+    public void update(long id, Post post) {
+        posts.computeIfPresent(id, (idSaved, postUpdated) -> {
+            postUpdated.setId(id);
+            postUpdated.setCreated(postUpdated.getCreated());
+            postUpdated.setCompany(post.getCompany());
+            postUpdated.setName(post.getName());
+            postUpdated.setDescription(post.getDescription());
+            return postUpdated;
+        });
+    }
+
+    public Post getById(long id) {
+        return posts.get(id);
     }
 }
