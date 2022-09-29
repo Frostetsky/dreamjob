@@ -44,7 +44,6 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Название вакансии</th>
                 <th scope="col">Название компании</th>
                 <th scope="col">Описание</th>
@@ -54,7 +53,6 @@
             </thead>
             <tbody>
             <tr th:each="post: ${posts}">
-                <td th:text="${post.id}" />
                 <td th:text="${post.name}" />
                 <td th:text="${post.company}"/>
                 <td th:text="${post.description}"/>

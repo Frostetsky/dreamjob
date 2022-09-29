@@ -40,4 +40,23 @@ public class CandidateController {
         candidateService.addCandidate(candidate);
         httpServletResponse.sendRedirect(String.format("%s/candidates", httpServletRequest.getContextPath()));
     }
+
+    @GetMapping("/updateCandidate/{id}")
+    public ModelAndView updatePostForm(@PathVariable("id") Long id) {
+        var rsl = candidateService.getCandidateById(id);
+        return new ModelAndView(
+                "update-candidate",
+                Map.of("candidate", rsl)
+        );
+    }
+
+    @PostMapping("/updateCandidate/{id}")
+    public void updatePostSubmit(@ModelAttribute("candidate") Candidate candidate,
+                                 @PathVariable("id") Long id,
+                                 HttpServletRequest httpServletRequest,
+                                 HttpServletResponse httpServletResponse) throws IOException {
+
+        candidateService.updateCandidate(id, candidate);
+        httpServletResponse.sendRedirect(String.format("%s/candidates", httpServletRequest.getContextPath()));
+    }
 }

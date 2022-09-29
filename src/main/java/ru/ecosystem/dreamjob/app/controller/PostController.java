@@ -57,6 +57,7 @@ public class PostController {
                                  @PathVariable("id") Long id,
                                  HttpServletRequest httpServletRequest,
                                  HttpServletResponse httpServletResponse) throws IOException {
+
         postService.updatePost(id, post);
         httpServletResponse.sendRedirect(String.format("%s/posts", httpServletRequest.getContextPath()));
     }

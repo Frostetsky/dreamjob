@@ -16,26 +16,41 @@ import static ru.ecosystem.dreamjob.app.util.DreamJobUtils.*;
 @Repository
 public class CandidateRepository {
 
-    private final Map<Long, Candidate> posts = new ConcurrentHashMap<>();
+    private final Map<Long, Candidate> candidates = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {
         long firstPostId = generateId();
         long secondPostId = generateId();
         long thirdPostId = generateId();
-        posts.put(firstPostId, new Candidate(firstPostId, "Junior Java Developer", "150 000", "description", LocalDateTime.now()));
-        posts.put(secondPostId, new Candidate(secondPostId, "Middle Php Developer", "200 000", "description", LocalDateTime.now()));
-        posts.put(thirdPostId, new Candidate(thirdPostId, "Senior DevOps", "256 000", "description", LocalDateTime.now()));
+        candidates.put(firstPostId, new Candidate(firstPostId, "Junior Java Developer", "150 000", "description", LocalDateTime.now()));
+        candidates.put(secondPostId, new Candidate(secondPostId, "Middle Php Developer", "200 000", "description", LocalDateTime.now()));
+        candidates.put(thirdPostId, new Candidate(thirdPostId, "Senior DevOps", "256 000", "description", LocalDateTime.now()));
     }
 
     public List<Candidate> findAll() {
-        return new ArrayList<>(posts.values());
+        return new ArrayList<>(candidates.values());
     }
 
     public void addCandidate(Candidate candidate) {
         long id = generateId();
         candidate.setId(id);
         candidate.setCreated(LocalDateTime.now());
-        posts.putIfAbsent(id, candidate);
+        candidates.putIfAbsent(id, candidate);
+    }
+
+    public Candidate getById(long id) {
+        return candidates.get(id);
+    }
+
+    public void update(long id, Candidate candidate) {
+        candidates.computeIfPresent(id, (idSaved, candidateUpdated) -> {
+            candidateUpdated.setId(id);
+            candidateUpdated.setCreated(candidateUpdated.getCreated());
+            candidateUpdated.setName(candidate.getName());
+            candidateUpdated.setPrice(candidate.getPrice());
+            candidateUpdated.setDescription(candidate.getDescription());
+            return candidateUpdated;
+        });
     }
 }
