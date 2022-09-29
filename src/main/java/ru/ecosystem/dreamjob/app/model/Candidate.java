@@ -22,5 +22,7 @@ public class Candidate implements Serializable {
 
     private WorkingMode workingMode;
 
+    private byte[] photo;
+
     private LocalDateTime created;
 }

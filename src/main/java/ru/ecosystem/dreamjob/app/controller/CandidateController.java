@@ -3,7 +3,13 @@ package ru.ecosystem.dreamjob.app.controller;
 import lombok.RequiredArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import ru.ecosystem.dreamjob.app.model.Candidate;
 import ru.ecosystem.dreamjob.app.model.Post;
@@ -13,6 +19,7 @@ import ru.ecosystem.dreamjob.app.service.WorkingModeService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Source;
 import java.io.IOException;
 import java.util.Map;
 
@@ -40,11 +47,13 @@ public class CandidateController {
 
     @PostMapping("/addCandidate")
     public void addPostSubmit(@ModelAttribute("candidate") Candidate candidate,
+                              @RequestParam("file") MultipartFile multipartFile,
                               HttpServletRequest httpServletRequest,
                               HttpServletResponse httpServletResponse) throws IOException {
 
         var mode = workingModeService.getById(candidate.getWorkingMode().getId());
         candidate.setWorkingMode(mode);
+        candidate.setPhoto(multipartFile.getBytes());
         candidateService.addCandidate(candidate);
         httpServletResponse.sendRedirect(String.format("%s/candidates", httpServletRequest.getContextPath()));
     }
@@ -59,12 +68,24 @@ public class CandidateController {
         );
     }
 
+    @GetMapping("/photoCandidate/{id}")
+    public ResponseEntity<Resource> loadPhoto(@PathVariable("id") Long id) {
+        var candidate = candidateService.getCandidateById(id);
+        return ResponseEntity.ok()
+                .headers(new HttpHeaders())
+                .contentLength(candidate.getPhoto().length)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new ByteArrayResource(candidate.getPhoto()));
+    }
+
     @PostMapping("/updateCandidate/{id}")
     public void updatePostSubmit(@ModelAttribute("candidate") Candidate candidate,
                                  @PathVariable("id") Long id,
+                                 @RequestParam("file") MultipartFile multipartFile,
                                  HttpServletRequest httpServletRequest,
                                  HttpServletResponse httpServletResponse) throws IOException {
 
+        candidate.setPhoto(multipartFile.getBytes());
         candidate.setWorkingMode(workingModeService.getById(candidate.getWorkingMode().getId()));
         candidateService.updateCandidate(id, candidate);
         httpServletResponse.sendRedirect(String.format("%s/candidates", httpServletRequest.getContextPath()));

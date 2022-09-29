@@ -33,13 +33,13 @@ public class CandidateRepository {
         long thirdPostId = generateId();
         candidates.put(firstPostId, new Candidate(firstPostId,
                 "Junior Java Developer", "150 000", "description",
-                workingModeRepository.getById(1L), LocalDateTime.now()));
+                workingModeRepository.getById(1L), new byte[]{}, LocalDateTime.now()));
         candidates.put(secondPostId, new Candidate(secondPostId,
                 "Middle Php Developer", "200 000", "description",
-                workingModeRepository.getById(2L), LocalDateTime.now()));
+                workingModeRepository.getById(2L), new byte[]{}, LocalDateTime.now()));
         candidates.put(thirdPostId, new Candidate(thirdPostId,
                 "Senior DevOps", "256 000", "description",
-                workingModeRepository.getById(3L), LocalDateTime.now()));
+                workingModeRepository.getById(3L), new byte[]{}, LocalDateTime.now()));
     }
 
     public List<Candidate> findAll() {
@@ -65,6 +65,7 @@ public class CandidateRepository {
             candidateUpdated.setPrice(candidate.getPrice());
             candidateUpdated.setDescription(candidate.getDescription());
             candidateUpdated.setWorkingMode(candidate.getWorkingMode());
+            candidateUpdated.setPhoto(candidate.getPhoto());
             return candidateUpdated;
         });
     }
