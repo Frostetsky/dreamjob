@@ -2,6 +2,7 @@ package ru.ecosystem.dreamjob.app.model;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @EqualsAndHashCode
-public class Candidate {
+public class Candidate implements Serializable {
 
     private long id;
 
@@ -18,6 +19,8 @@ public class Candidate {
     private String price;
 
     private String description;
+
+    private WorkingMode workingMode;
 
     private LocalDateTime created;
 }

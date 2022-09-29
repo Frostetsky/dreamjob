@@ -32,6 +32,10 @@
                         <p>Доход: <input type="text" size="45" placeholder="Введите желаемый доход" th:field="${candidate.price}"/></p>
                         <br>
                         <p>Краткое описание </p><textarea rows="15" cols="80" placeholder="Введите описание" th:field="${candidate.description}"></textarea></p>
+                        <label for="mode.id">Выберите предпочитаемый режим работы</label>
+                        <select class="form-control" id="mode.id" name="mode.mode" th:field="*{workingMode.id}">
+                            <option th:each="mode : ${modes}" th:value="${mode.id}" th:text="${mode.mode?.named}"></option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Опубликовать</button>
                 </form>

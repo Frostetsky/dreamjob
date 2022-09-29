@@ -1,9 +1,12 @@
 package ru.ecosystem.dreamjob.app.repository;
 
+import lombok.RequiredArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.ecosystem.dreamjob.app.model.Candidate;
 import ru.ecosystem.dreamjob.app.model.Post;
+import ru.ecosystem.dreamjob.app.model.WorkingMode;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
@@ -16,18 +19,27 @@ import static ru.ecosystem.dreamjob.app.util.DreamJobUtils.*;
 
 @Repository
 @ThreadSafe
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CandidateRepository {
 
     private final Map<Long, Candidate> candidates = new ConcurrentHashMap<>();
+
+    private final WorkingModeRepository workingModeRepository;
 
     @PostConstruct
     public void init() {
         long firstPostId = generateId();
         long secondPostId = generateId();
         long thirdPostId = generateId();
-        candidates.put(firstPostId, new Candidate(firstPostId, "Junior Java Developer", "150 000", "description", LocalDateTime.now()));
-        candidates.put(secondPostId, new Candidate(secondPostId, "Middle Php Developer", "200 000", "description", LocalDateTime.now()));
-        candidates.put(thirdPostId, new Candidate(thirdPostId, "Senior DevOps", "256 000", "description", LocalDateTime.now()));
+        candidates.put(firstPostId, new Candidate(firstPostId,
+                "Junior Java Developer", "150 000", "description",
+                workingModeRepository.getById(1L), LocalDateTime.now()));
+        candidates.put(secondPostId, new Candidate(secondPostId,
+                "Middle Php Developer", "200 000", "description",
+                workingModeRepository.getById(2L), LocalDateTime.now()));
+        candidates.put(thirdPostId, new Candidate(thirdPostId,
+                "Senior DevOps", "256 000", "description",
+                workingModeRepository.getById(3L), LocalDateTime.now()));
     }
 
     public List<Candidate> findAll() {
@@ -52,6 +64,7 @@ public class CandidateRepository {
             candidateUpdated.setName(candidate.getName());
             candidateUpdated.setPrice(candidate.getPrice());
             candidateUpdated.setDescription(candidate.getDescription());
+            candidateUpdated.setWorkingMode(candidate.getWorkingMode());
             return candidateUpdated;
         });
     }

@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.ecosystem.dreamjob.app.model.Candidate;
 import ru.ecosystem.dreamjob.app.model.Post;
+import ru.ecosystem.dreamjob.app.model.WorkingMode;
 import ru.ecosystem.dreamjob.app.service.CandidateService;
+import ru.ecosystem.dreamjob.app.service.WorkingModeService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +23,7 @@ import java.util.Map;
 public class CandidateController {
 
     private final CandidateService candidateService;
+    private final WorkingModeService workingModeService;
 
     @GetMapping
     public ModelAndView getAllCandidates() {
@@ -31,7 +34,8 @@ public class CandidateController {
     public ModelAndView addPostForm() {
         return new ModelAndView(
                 "add-candidate",
-                Map.of("candidate", new Candidate()));
+                Map.of("candidate", new Candidate(),
+                       "modes", workingModeService.findAll()));
     }
 
     @PostMapping("/addCandidate")
@@ -39,6 +43,8 @@ public class CandidateController {
                               HttpServletRequest httpServletRequest,
                               HttpServletResponse httpServletResponse) throws IOException {
 
+        var mode = workingModeService.getById(candidate.getWorkingMode().getId());
+        candidate.setWorkingMode(mode);
         candidateService.addCandidate(candidate);
         httpServletResponse.sendRedirect(String.format("%s/candidates", httpServletRequest.getContextPath()));
     }
@@ -48,7 +54,8 @@ public class CandidateController {
         var rsl = candidateService.getCandidateById(id);
         return new ModelAndView(
                 "update-candidate",
-                Map.of("candidate", rsl)
+                Map.of("candidate", rsl,
+                        "modes", workingModeService.findAll())
         );
     }
 
@@ -58,6 +65,7 @@ public class CandidateController {
                                  HttpServletRequest httpServletRequest,
                                  HttpServletResponse httpServletResponse) throws IOException {
 
+        candidate.setWorkingMode(workingModeService.getById(candidate.getWorkingMode().getId()));
         candidateService.updateCandidate(id, candidate);
         httpServletResponse.sendRedirect(String.format("%s/candidates", httpServletRequest.getContextPath()));
     }

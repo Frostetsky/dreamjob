@@ -3,6 +3,7 @@ package ru.ecosystem.dreamjob.app.model;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @EqualsAndHashCode
-public class Post {
+public class Post implements Serializable {
 
     private long id;
 
