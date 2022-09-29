@@ -11,6 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@ThreadSafe
 public class CandidateService {
 
     private final CandidateRepository candidateRepository;

@@ -1,5 +1,6 @@
 package ru.ecosystem.dreamjob.app.repository;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.ecosystem.dreamjob.app.model.Post;
 
@@ -13,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static ru.ecosystem.dreamjob.app.util.DreamJobUtils.*;
 
 @Repository
+@ThreadSafe
 public class PostRepository {
 
     private final Map<Long, Post> posts = new ConcurrentHashMap<>();

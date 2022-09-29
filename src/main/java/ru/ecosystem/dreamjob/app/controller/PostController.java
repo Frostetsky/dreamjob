@@ -1,6 +1,7 @@
 package ru.ecosystem.dreamjob.app.controller;
 
 import lombok.RequiredArgsConstructor;
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/posts")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@ThreadSafe
 public class PostController {
 
     private final PostService postService;

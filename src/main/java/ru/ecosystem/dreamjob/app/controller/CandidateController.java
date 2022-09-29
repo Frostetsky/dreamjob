@@ -1,6 +1,7 @@
 package ru.ecosystem.dreamjob.app.controller;
 
 import lombok.RequiredArgsConstructor;
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/candidates")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@ThreadSafe
 public class CandidateController {
 
     private final CandidateService candidateService;
