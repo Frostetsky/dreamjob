@@ -3,11 +3,10 @@ package ru.ecosystem.dreamjob.app;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class DreamjobApplicationTests {
+public class DreamjobApplicationTests {
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
     }
 
 }
