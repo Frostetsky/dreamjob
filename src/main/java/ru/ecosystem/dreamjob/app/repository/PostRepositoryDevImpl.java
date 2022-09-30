@@ -1,25 +1,29 @@
 package ru.ecosystem.dreamjob.app.repository;
 
 import net.jcip.annotations.ThreadSafe;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
+import ru.ecosystem.dreamjob.app.config.Profiles;
 import ru.ecosystem.dreamjob.app.model.Post;
+import ru.ecosystem.dreamjob.app.repository.interfaces.PostRepository;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import static ru.ecosystem.dreamjob.app.util.DreamJobUtils.*;
 
 @Repository
 @ThreadSafe
-public class PostRepository {
+@Profile(Profiles.DEV)
+public class PostRepositoryDevImpl implements PostRepository<Long, Post> {
 
     private final Map<Long, Post> posts = new ConcurrentHashMap<>();
 
     @PostConstruct
+    @Override
     public void init() {
         long firstPostId = generateId();
         long secondPostId = generateId();
@@ -33,14 +37,14 @@ public class PostRepository {
         return new ArrayList<>(posts.values());
     }
 
-    public void add(Post post) {
+    public Post add(Post post) {
         long id = generateId();
         post.setId(id);
         post.setCreated(LocalDateTime.now());
-        posts.putIfAbsent(id, post);
+        return posts.putIfAbsent(id, post);
     }
 
-    public void update(long id, Post post) {
+    public void update(Long id, Post post) {
         posts.computeIfPresent(id, (idSaved, postUpdated) -> {
             postUpdated.setId(id);
             postUpdated.setCreated(postUpdated.getCreated());
@@ -51,7 +55,12 @@ public class PostRepository {
         });
     }
 
-    public Post getById(long id) {
+    @Override
+    public void delete(Long id) {
+        posts.remove(id);
+    }
+
+    public Post getById(Long id) {
         return posts.get(id);
     }
 }

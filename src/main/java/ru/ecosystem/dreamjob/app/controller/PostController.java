@@ -54,13 +54,22 @@ public class PostController {
         );
     }
 
-    @PostMapping("/updatePost/{id}")
+    @PutMapping("/updatePost/{id}")
     public void updatePostSubmit(@ModelAttribute("post") Post post,
                                  @PathVariable("id") Long id,
                                  HttpServletRequest httpServletRequest,
                                  HttpServletResponse httpServletResponse) throws IOException {
 
         postService.updatePost(id, post);
+        httpServletResponse.sendRedirect(String.format("%s/posts", httpServletRequest.getContextPath()));
+    }
+
+    @GetMapping("/deletePost/{id}")
+    public void deleteCandidate(@PathVariable("id") Long id,
+                                HttpServletResponse httpServletResponse,
+                                HttpServletRequest httpServletRequest) throws IOException {
+
+        postService.deletePost(id);
         httpServletResponse.sendRedirect(String.format("%s/posts", httpServletRequest.getContextPath()));
     }
 }

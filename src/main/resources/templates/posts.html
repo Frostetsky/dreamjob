@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:custom="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -60,6 +60,9 @@
                 <td>
                     <a th:href="@{|/posts/updatePost/${post.id}|}">
                         <i class="fa fa-edit"></i>
+                    </a>
+                    <a th:href="@{|/posts/deletePost/${post.id}|}">
+                        <i class="fa fa-remove"></i>
                     </a>
                 </td>
             </tr>

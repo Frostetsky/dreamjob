@@ -38,7 +38,7 @@ public class CandidateController {
     }
 
     @GetMapping("/addCandidate")
-    public ModelAndView addPostForm() {
+    public ModelAndView addCandidateForm() {
         return new ModelAndView(
                 "add-candidate",
                 Map.of("candidate", new Candidate(),
@@ -46,7 +46,7 @@ public class CandidateController {
     }
 
     @PostMapping("/addCandidate")
-    public void addPostSubmit(@ModelAttribute("candidate") Candidate candidate,
+    public void addCandidateSubmit(@ModelAttribute("candidate") Candidate candidate,
                               @RequestParam("file") MultipartFile multipartFile,
                               HttpServletRequest httpServletRequest,
                               HttpServletResponse httpServletResponse) throws IOException {
@@ -59,7 +59,7 @@ public class CandidateController {
     }
 
     @GetMapping("/updateCandidate/{id}")
-    public ModelAndView updatePostForm(@PathVariable("id") Long id) {
+    public ModelAndView updateCandidateForm(@PathVariable("id") Long id) {
         var rsl = candidateService.getCandidateById(id);
         return new ModelAndView(
                 "update-candidate",
@@ -78,8 +78,8 @@ public class CandidateController {
                 .body(new ByteArrayResource(candidate.getPhoto()));
     }
 
-    @PostMapping("/updateCandidate/{id}")
-    public void updatePostSubmit(@ModelAttribute("candidate") Candidate candidate,
+    @PutMapping("/updateCandidate/{id}")
+    public void updateCandidateSubmit(@ModelAttribute("candidate") Candidate candidate,
                                  @PathVariable("id") Long id,
                                  @RequestParam("file") MultipartFile multipartFile,
                                  HttpServletRequest httpServletRequest,
@@ -88,6 +88,15 @@ public class CandidateController {
         candidate.setPhoto(multipartFile.getBytes());
         candidate.setWorkingMode(workingModeService.getById(candidate.getWorkingMode().getId()));
         candidateService.updateCandidate(id, candidate);
+        httpServletResponse.sendRedirect(String.format("%s/candidates", httpServletRequest.getContextPath()));
+    }
+
+    @GetMapping("/deleteCandidate/{id}")
+    public void deleteCandidate(@PathVariable("id") Long id,
+                                HttpServletResponse httpServletResponse,
+                                HttpServletRequest httpServletRequest) throws IOException {
+
+        candidateService.deleteCandidate(id);
         httpServletResponse.sendRedirect(String.format("%s/candidates", httpServletRequest.getContextPath()));
     }
 }

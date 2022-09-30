@@ -43,7 +43,7 @@
                 Редактирование вакансии
             </div>
             <div class="card-body">
-                <form th:action="@{|/posts/updatePost/${post.id}|}" method="POST" th:object="${post}">
+                <form th:action="@{|/posts/updatePost/${post.id}|}" th:method="PUT" th:object="${post}">
                     <div class="form-group">
                         <p>Название вакансии: <input type="text" size="45" placeholder="Введите название вакансии" th:field="${post.name}"/></p>
                         <br>

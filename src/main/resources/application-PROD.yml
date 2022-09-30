@@ -1,0 +1,10 @@
+spring:
+  liquibase:
+    enabled: true
+
+config:
+  database:
+    driver: org.postgresql.Driver
+    username: postgres
+    password: password
+    url: jdbc:postgresql://localhost:5432/dreamjob

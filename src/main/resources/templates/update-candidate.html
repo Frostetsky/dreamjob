@@ -43,7 +43,7 @@
                 Редактирование резюме
             </div>
             <div class="card-body">
-                <form th:action="@{|/candidates/updateCandidate/${candidate.id}|}" method="POST" th:object="${candidate}" enctype="multipart/form-data">
+                <form th:action="@{|/candidates/updateCandidate/${candidate.id}|}" th:method="PUT" th:object="${candidate}" enctype="multipart/form-data">
                     <div class="form-group">
                         <p>Название резюме: <input type="text" size="45" placeholder="Введите название резюме" th:field="${candidate.name}"/></p>
                         <br>

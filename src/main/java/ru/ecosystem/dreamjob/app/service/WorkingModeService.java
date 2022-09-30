@@ -5,7 +5,7 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ecosystem.dreamjob.app.model.WorkingMode;
-import ru.ecosystem.dreamjob.app.repository.WorkingModeRepository;
+import ru.ecosystem.dreamjob.app.repository.interfaces.WorkingModeRepository;
 
 import java.util.List;
 
@@ -14,13 +14,13 @@ import java.util.List;
 @ThreadSafe
 public class WorkingModeService {
 
-    private final WorkingModeRepository workingModeRepository;
+    private final WorkingModeRepository<Long, WorkingMode> workingModeRepository;
 
     public List<WorkingMode> findAll() {
         return workingModeRepository.findAll();
     }
 
-    public WorkingMode getById(long id) {
+    public WorkingMode getById(Long id) {
         return workingModeRepository.getById(id);
     }
 }

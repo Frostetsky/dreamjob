@@ -5,7 +5,8 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ecosystem.dreamjob.app.model.Candidate;
-import ru.ecosystem.dreamjob.app.repository.CandidateRepository;
+import ru.ecosystem.dreamjob.app.repository.CandidateRepositoryDevImpl;
+import ru.ecosystem.dreamjob.app.repository.interfaces.CandidateRepository;
 
 import java.util.List;
 
@@ -14,21 +15,25 @@ import java.util.List;
 @ThreadSafe
 public class CandidateService {
 
-    private final CandidateRepository candidateRepository;
+    private final CandidateRepository<Long, Candidate> candidateRepository;
 
     public List<Candidate> getAllCandidates() {
         return candidateRepository.findAll();
     }
 
     public void addCandidate(Candidate candidate) {
-        candidateRepository.addCandidate(candidate);
+        candidateRepository.add(candidate);
     }
 
-    public Candidate getCandidateById(long id) {
+    public Candidate getCandidateById(Long id) {
         return candidateRepository.getById(id);
     }
 
-    public void updateCandidate(long id, Candidate candidate) {
+    public void updateCandidate(Long id, Candidate candidate) {
         candidateRepository.update(id, candidate);
+    }
+
+    public void deleteCandidate(Long id) {
+        candidateRepository.delete(id);
     }
 }
