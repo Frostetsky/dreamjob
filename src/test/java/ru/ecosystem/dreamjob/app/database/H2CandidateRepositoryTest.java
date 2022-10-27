@@ -13,7 +13,6 @@ import org.springframework.test.context.ContextConfiguration;
 import ru.ecosystem.dreamjob.app.config.Profiles;
 import ru.ecosystem.dreamjob.app.model.Candidate;
 import ru.ecosystem.dreamjob.app.model.WorkingMode;
-import ru.ecosystem.dreamjob.app.repository.CandidateRepositoryProdImpl;
 import ru.ecosystem.dreamjob.app.repository.interfaces.CandidateRepository;
 
 import java.io.BufferedReader;
@@ -23,8 +22,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @JdbcTest
-@ActiveProfiles(Profiles.PROD)
-@ContextConfiguration(classes = CandidateRepositoryProdImpl.class)
+@ActiveProfiles(Profiles.TEST)
+@ContextConfiguration(classes = TestAppConfiguration.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class H2CandidateRepositoryTest {
 
@@ -57,8 +56,8 @@ public class H2CandidateRepositoryTest {
 
     @AfterEach
     public void dropTables() {
-        jdbcTemplate.execute("DELETE FROM candidates");
-        jdbcTemplate.execute("DELETE FROM working_modes");
+        jdbcTemplate.execute("DROP TABLE candidates");
+        jdbcTemplate.execute("DROP TABLE working_modes");
     }
 
 

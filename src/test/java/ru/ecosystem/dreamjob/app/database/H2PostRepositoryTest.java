@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @JdbcTest
-@ActiveProfiles(Profiles.PROD)
-@ContextConfiguration(classes = PostRepositoryProdImpl.class)
+@ActiveProfiles(Profiles.TEST)
+@ContextConfiguration(classes = TestAppConfiguration.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class H2PostRepositoryTest {
 
@@ -54,7 +54,7 @@ public class H2PostRepositoryTest {
 
     @AfterEach
     public void dropTables() {
-        jdbcTemplate.execute("DELETE FROM posts");
+        jdbcTemplate.execute("DROP TABLE posts");
     }
 
     @Test
