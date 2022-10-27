@@ -3,18 +3,13 @@ package ru.ecosystem.dreamjob.app.database;
 import liquibase.integration.spring.SpringLiquibase;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.*;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
 import ru.ecosystem.dreamjob.app.config.Profiles;
 import ru.ecosystem.dreamjob.app.model.Candidate;
 import ru.ecosystem.dreamjob.app.model.WorkingMode;
@@ -62,8 +57,8 @@ public class H2CandidateRepositoryTest {
 
     @AfterEach
     public void dropTables() {
-        jdbcTemplate.execute("DROP TABLE candidates");
-        jdbcTemplate.execute("DROP TABLE working_modes");
+        jdbcTemplate.execute("DELETE FROM candidates");
+        jdbcTemplate.execute("DELETE FROM working_modes");
     }
 
 

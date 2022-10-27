@@ -79,6 +79,6 @@ public class CandidateRepositoryDevImpl implements CandidateRepository<Long, Can
 
     @Override
     public void delete(Long id) {
-
+        candidates.remove(id);
     }
 }

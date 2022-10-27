@@ -47,9 +47,9 @@ public class CandidateController {
 
     @PostMapping("/addCandidate")
     public void addCandidateSubmit(@ModelAttribute("candidate") Candidate candidate,
-                              @RequestParam("file") MultipartFile multipartFile,
-                              HttpServletRequest httpServletRequest,
-                              HttpServletResponse httpServletResponse) throws IOException {
+                                   @RequestParam("file") MultipartFile multipartFile,
+                                   HttpServletRequest httpServletRequest,
+                                   HttpServletResponse httpServletResponse) throws IOException {
 
         var mode = workingModeService.getById(candidate.getWorkingMode().getId());
         candidate.setWorkingMode(mode);

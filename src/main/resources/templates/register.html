@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <!-- Required meta tags -->
@@ -15,7 +15,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <title>Работа мечты</title>
+    <title>Работа мечты!</title>
 </head>
 <body>
 
@@ -43,22 +43,24 @@
 <br>
 <br>
 
-<div class="container">
+<div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Новая вакансия.
+                Зарегистрироваться (Админ)
             </div>
             <div class="card-body">
-                <form action="#" th:action="@{/posts/addPost}" th:object="${post}" method="post">
+                <form action="#" th:action="@{/auth/register/admin}" th:object="${signup}" method="post">
                     <div class="form-group">
-                        <p>Название вакансии: <input type="text" size="45" placeholder="Введите название вакансии" th:field="${post.name}"/></p>
+                        <p>Логин: <input type="text" size="45" placeholder="Введите логин" th:field="${signup.username}"/></p>
                         <br>
-                        <p>Название компании: <input type="text" size="45" placeholder="Введите название компании" th:field="${post.company}"/></p>
+                        <p>Пароль: <input type="text" size="45" placeholder="Введите пароль" th:field="${signup.password}"/></p>
                         <br>
-                        <p>Описание вакансии</p><textarea rows="15" cols="80" placeholder="Введите описание" th:field="${post.description}"></textarea></p>
+                        <p>Секретный ключ: <input type="text" size="45" placeholder="Введите ключ" th:field="${signup.secretHash}"/></p>
+                        <br>
+                        <p>Секретный номер: <input type="text" size="45" placeholder="Введите номер" th:field="${signup.secretNumber}"/></p>
                     </div>
-                    <button type="submit" class="btn btn-primary">Опубликовать</button>
+                    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
                 </form>
             </div>
         </div>

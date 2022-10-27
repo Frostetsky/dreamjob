@@ -30,6 +30,11 @@
             <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
             <a class="nav-item nav-link" th:href="@{/posts/addPost}">Добавить вакансию</a>
             <a class="nav-item nav-link" th:href="@{/candidates/addCandidate}">Добавить резюме</a>
+            <a class="nav-item nav-link" th:href="@{/auth/register/admin}">Зарегистрироваться как администратор</a>
+            <a class="nav-item nav-link" th:if="${#httpServletRequest.getSession().getAttribute('USER_ID') == null}" th:href="@{/auth/login}">Авторизоваться</a>
+            <a class="nav-item nav-link" th:if="${#httpServletRequest.getSession().getAttribute('USER_ID') != null}" th:href="@{/auth/logout}">
+                <span>Администратор | Выйти</span>
+            </a>
         </div>
     </div>
 </nav>

@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,8 +14,9 @@
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>Работа мечты</title>
+    <title>Работа мечты!</title>
 </head>
 <body>
 
@@ -43,26 +44,11 @@
 <br>
 <br>
 
-<div class="container">
-    <div class="row">
-        <div class="card" style="width: 100%">
-            <div class="card-header">
-                Новая вакансия.
-            </div>
-            <div class="card-body">
-                <form action="#" th:action="@{/posts/addPost}" th:object="${post}" method="post">
-                    <div class="form-group">
-                        <p>Название вакансии: <input type="text" size="45" placeholder="Введите название вакансии" th:field="${post.name}"/></p>
-                        <br>
-                        <p>Название компании: <input type="text" size="45" placeholder="Введите название компании" th:field="${post.company}"/></p>
-                        <br>
-                        <p>Описание вакансии</p><textarea rows="15" cols="80" placeholder="Введите описание" th:field="${post.description}"></textarea></p>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Опубликовать</button>
-                </form>
-            </div>
-        </div>
+<div class="alert alert-warning">
+    <div th:object="${info}">
+        <strong>Предупреждение!</strong> <p><span th:utext="${info.message}"></span></p>
     </div>
 </div>
+
 </body>
 </html>

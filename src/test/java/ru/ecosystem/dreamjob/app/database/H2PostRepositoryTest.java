@@ -54,7 +54,7 @@ public class H2PostRepositoryTest {
 
     @AfterEach
     public void dropTables() {
-        jdbcTemplate.execute("DROP TABLE posts");
+        jdbcTemplate.execute("DELETE FROM posts");
     }
 
     @Test
