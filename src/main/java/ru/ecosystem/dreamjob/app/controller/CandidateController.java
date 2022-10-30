@@ -80,10 +80,10 @@ public class CandidateController {
 
     @PutMapping("/updateCandidate/{id}")
     public void updateCandidateSubmit(@ModelAttribute("candidate") Candidate candidate,
-                                 @PathVariable("id") Long id,
-                                 @RequestParam("file") MultipartFile multipartFile,
-                                 HttpServletRequest httpServletRequest,
-                                 HttpServletResponse httpServletResponse) throws IOException {
+                                      @PathVariable("id") Long id,
+                                      @RequestParam("file") MultipartFile multipartFile,
+                                      HttpServletRequest httpServletRequest,
+                                      HttpServletResponse httpServletResponse) throws IOException {
 
         candidate.setPhoto(multipartFile.getBytes());
         candidate.setWorkingMode(workingModeService.getById(candidate.getWorkingMode().getId()));
